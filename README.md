@@ -1,1 +1,733 @@
 # PotatoesRandy.github.io
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🎉Feliz Cumpleaños, Negrita Linda🥳</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+
+<style>
+  /* ===================== TOKENS ===================== */
+  :root{
+    --bg-top:#ffe3ec;
+    --bg-bottom:#ffc4d8;
+    --paper:#fff8ef;
+    --paper-edge:#f2e0cd;
+    --rose:#d45d79;
+    --rose-deep:#8c3252;
+    --gold:#d8a857;
+    --ink:#4a2e35;
+
+    --font-script:'Caveat', cursive;
+    --font-serif:'Playfair Display', Georgia, 'Times New Roman', serif;
+    --font-body:'Nunito', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  }
+
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg-top:#2b1620;
+      --bg-bottom:#180d13;
+      --paper:#3d2430;
+      --paper-edge:#2e1a24;
+      --rose:#ea8aa1;
+      --rose-deep:#f3b0c0;
+      --gold:#e3be85;
+      --ink:#f5e6da;
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg-top:#2b1620;
+    --bg-bottom:#180d13;
+    --paper:#3d2430;
+    --paper-edge:#2e1a24;
+    --rose:#ea8aa1;
+    --rose-deep:#f3b0c0;
+    --gold:#e3be85;
+    --ink:#f5e6da;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *, *::before, *::after{
+      animation-duration:0.01ms !important;
+      animation-iteration-count:1 !important;
+      transition-duration:0.01ms !important;
+      scroll-behavior:auto !important;
+    }
+  }
+
+  /* ===================== RESET ===================== */
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    min-height:100vh;
+    background:linear-gradient(160deg, var(--bg-top), var(--bg-bottom));
+    color:var(--ink);
+    font-family:var(--font-body);
+    overflow-x:hidden;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,p,ul{margin:0;}
+  img{max-width:100%;}
+  button{font-family:inherit;}
+  :focus-visible{outline:3px solid var(--gold); outline-offset:3px;}
+
+  /* ===================== FLOATING HEARTS LAYER ===================== */
+  #heartsLayer{
+    position:fixed; inset:0; pointer-events:none; z-index:1; overflow:hidden;
+  }
+  .floating-heart{
+    position:absolute;
+    bottom:-40px;
+    color:var(--rose);
+    opacity:.5;
+    animation:floatUp linear forwards;
+    will-change:transform, opacity;
+  }
+  @keyframes floatUp{
+    0%{ transform:translate(0,0) rotate(0deg); opacity:0; }
+    12%{ opacity:.55; }
+    100%{ transform:translate(var(--drift), -115vh) rotate(30deg); opacity:0; }
+  }
+
+  /* ===================== CURSOR TRAIL ===================== */
+  .cursor-heart{
+    position:fixed;
+    pointer-events:none;
+    color:var(--rose);
+    font-size:14px;
+    opacity:.65;
+    z-index:40;
+    transform:translate(-50%,-50%);
+    animation:cursorFade .7s ease-out forwards;
+  }
+  @keyframes cursorFade{
+    to{ transform:translate(-50%,-160%) scale(.4); opacity:0; }
+  }
+
+  /* ===================== BURST HEARTS ===================== */
+  .burst-heart{
+    position:fixed;
+    pointer-events:none;
+    z-index:60;
+    transform:translate(-50%,-50%);
+    animation:burst 1s ease-out forwards;
+  }
+  @keyframes burst{
+    0%{ transform:translate(-50%,-50%) scale(.5); opacity:1; }
+    100%{ transform:translate(calc(-50% + var(--dx)), calc(-50% + var(--dy))) scale(1.05); opacity:0; }
+  }
+
+  /* ===================== HERO ===================== */
+  .hero{
+    position:relative;
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    overflow:hidden;
+    text-align:center;
+    padding:24px;
+  }
+  .hero-content{
+    position:relative;
+    z-index:2;
+    animation:heroIn 1s ease .1s both;
+  }
+  @keyframes heroIn{
+    from{ opacity:0; transform:translateY(14px); }
+    to{ opacity:1; transform:translateY(0); }
+  }
+  .hero-title{
+    font-family:var(--font-script);
+    font-weight:700;
+    font-size:clamp(3rem, 13vw, 6.2rem);
+    line-height:.85;
+    color:var(--rose-deep);
+  }
+  .hero-name{
+    font-family:var(--font-serif);
+    font-style:italic;
+    font-weight:600;
+    font-size:clamp(1.4rem, 5vw, 2.1rem);
+    color:var(--ink);
+    margin-top:.4rem;
+  }
+  .hero-sub{
+    font-size:1rem;
+    color:var(--ink);
+    opacity:.7;
+    margin-top:1.1rem;
+  }
+
+  /* ===================== ENVELOPE ===================== */
+  .envelope-wrap{
+    position:absolute;
+    inset:0;
+    z-index:10;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    gap:22px;
+    background:linear-gradient(160deg, var(--bg-top), var(--bg-bottom));
+    transition:opacity .7s ease, transform .7s ease;
+  }
+  .envelope-wrap.hidden{
+    opacity:0;
+    transform:scale(1.06);
+    pointer-events:none;
+  }
+  .envelope{
+    all:unset;
+    position:relative;
+    width:clamp(200px, 46vw, 280px);
+    height:clamp(130px, 30vw, 182px);
+    cursor:pointer;
+    perspective:700px;
+  }
+  .envelope-back{
+    position:absolute; inset:0;
+    background:var(--paper);
+    border-radius:6px;
+    box-shadow:0 16px 34px rgba(76,20,40,.28);
+  }
+  .envelope-back::after{
+    content:"";
+    position:absolute; inset:0;
+    clip-path:polygon(0 0, 50% 46%, 100% 0, 100% 100%, 0 100%);
+    background:linear-gradient(160deg, rgba(212,93,121,.16), rgba(140,50,82,.1));
+  }
+  .envelope-flap{
+    position:absolute;
+    top:0; left:0;
+    width:100%; height:52%;
+    background:linear-gradient(135deg, var(--rose), var(--rose-deep));
+    clip-path:polygon(0 0, 100% 0, 50% 100%);
+    transform-origin:top center;
+    transition:transform .85s cubic-bezier(.6,-0.2,.35,1.4);
+    z-index:3;
+    border-radius:6px 6px 0 0;
+  }
+  .envelope.opened .envelope-flap{
+    transform:rotateX(180deg);
+  }
+  .wax-seal{
+    position:absolute;
+    top:44%; left:50%;
+    transform:translate(-50%,-50%);
+    width:52px; height:52px;
+    border-radius:50%;
+    background:radial-gradient(circle at 35% 30%, var(--gold), var(--rose-deep));
+    display:flex; align-items:center; justify-content:center;
+    color:#fff8ef;
+    font-size:1.3rem;
+    box-shadow:0 4px 10px rgba(76,20,40,.4);
+    z-index:4;
+    transition:transform .3s ease, opacity .4s ease;
+  }
+  .envelope:hover .wax-seal{ transform:translate(-50%,-50%) scale(1.06); }
+  .envelope.opened .wax-seal{ opacity:0; transform:translate(-50%,-50%) scale(.6); }
+  .tap-hint{
+    font-size:.95rem;
+    color:var(--ink);
+    opacity:.65;
+    animation:pulseHint 2.4s ease-in-out infinite;
+  }
+  @keyframes pulseHint{
+    0%,100%{opacity:.45;} 50%{opacity:.85;}
+  }
+
+  /* ===================== SCRAP SECTIONS ===================== */
+  main{ position:relative; z-index:2; padding-bottom:60px; }
+  .scrap{
+    position:relative;
+    max-width:620px;
+    margin:100px auto;
+    background:var(--paper);
+    padding:42px clamp(22px, 6vw, 52px);
+    box-shadow:0 16px 32px rgba(76,20,40,.18), 0 2px 6px rgba(76,20,40,.08);
+    border-radius:3px;
+    background-image:repeating-linear-gradient(0deg, rgba(0,0,0,.025) 0px, transparent 1px, transparent 27px);
+    opacity:0;
+    transform:translateY(30px) rotate(var(--tilt, -0.6deg)) scale(.98);
+    transition:opacity .8s ease, transform .8s ease;
+  }
+  .scrap.in-view{
+    opacity:1;
+    transform:translateY(0) rotate(var(--tilt, -0.6deg)) scale(1);
+  }
+  .scrap-title{
+    font-family:var(--font-serif);
+    font-style:italic;
+    font-weight:600;
+    font-size:clamp(1.5rem, 4vw, 2rem);
+    color:var(--rose-deep);
+    margin-bottom:1.3rem;
+  }
+  .tape{
+    position:absolute;
+    width:64px; height:24px;
+    background:repeating-linear-gradient(45deg, rgba(212,93,121,.35) 0 7px, rgba(255,255,255,.4) 7px 14px);
+    box-shadow:0 1px 3px rgba(0,0,0,.15);
+    opacity:.85;
+  }
+  .tape-top{ top:-13px; left:50%; transform:translateX(-50%) rotate(-3deg); }
+
+  /* Letter */
+  .letter{ --tilt:-0.7deg; }
+  .letter-text{
+    font-size:1.08rem;
+    line-height:1.85;
+    white-space:pre-line;
+    min-height:2em;
+  }
+  .letter-text::after{
+    content:"";
+  }
+
+  /* Photos */
+  .photos{ --tilt:0.5deg; text-align:center; max-width:760px; }
+  .photo-row{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    gap:26px 18px;
+    margin-top:8px;
+  }
+  .photo-frame{
+    position:relative;
+    background:var(--paper);
+    padding:10px 10px 30px;
+    width:150px;
+    box-shadow:0 10px 20px rgba(76,20,40,.2);
+    transform:rotate(var(--rot,0deg));
+    transition:transform .35s ease, box-shadow .35s ease;
+    border:1px solid rgba(0,0,0,.03);
+  }
+  .photo-frame:hover{
+    transform:rotate(0deg) scale(1.06);
+    box-shadow:0 16px 26px rgba(76,20,40,.28);
+    z-index:5;
+  }
+  .photo-img{
+    width:100%; height:170px;
+    object-fit:cover;
+    display:block;
+    background:var(--paper-edge);
+  }
+  .photo-fallback{
+    display:none;
+    width:100%; height:170px;
+    align-items:center; justify-content:center;
+    font-size:2rem;
+    background:linear-gradient(135deg, #fff, var(--paper-edge));
+    color:var(--rose);
+  }
+  .photo-frame .tape{ top:-12px; left:50%; transform:translateX(-50%) rotate(-6deg); }
+  .photo-frame:nth-child(2) .tape{ transform:translateX(-50%) rotate(7deg); }
+  .photo-frame:nth-child(3) .tape{ transform:translateX(-50%) rotate(-4deg); }
+
+  /* List */
+  .list{ --tilt:-0.4deg; }
+  .love-list{ list-style:none; padding:0; }
+  .love-list li{
+    position:relative;
+    padding:9px 0 9px 30px;
+    font-size:1.05rem;
+    line-height:1.5;
+    opacity:0;
+    transform:translateX(-16px);
+    transition:opacity .5s ease, transform .5s ease;
+  }
+  .love-list li::before{
+    content:"♥";
+    position:absolute;
+    left:0; top:9px;
+    color:var(--rose);
+    font-size:.95rem;
+  }
+  .love-list.in-view li{ opacity:1; transform:translateX(0); }
+  .love-list li:nth-child(1){ transition-delay:.05s; }
+  .love-list li:nth-child(2){ transition-delay:.18s; }
+  .love-list li:nth-child(3){ transition-delay:.31s; }
+  .love-list li:nth-child(4){ transition-delay:.44s; }
+  .love-list li:nth-child(5){ transition-delay:.57s; }
+
+  /* Secret */
+  .secret{ --tilt:0.6deg; text-align:center; }
+  .secret-hint{ opacity:.75; margin-bottom:22px; }
+  .wax-button{
+    all:unset;
+    width:76px; height:76px;
+    border-radius:50%;
+    background:radial-gradient(circle at 35% 30%, var(--gold), var(--rose-deep));
+    color:#fff8ef;
+    font-size:1.6rem;
+    display:flex; align-items:center; justify-content:center;
+    cursor:pointer;
+    box-shadow:0 8px 18px rgba(76,20,40,.35);
+    transition:transform .25s ease;
+  }
+  .wax-button:hover{ transform:scale(1.08) rotate(-4deg); }
+  .wax-button:active{ transform:scale(.94); }
+  .secret-message{
+    font-family:var(--font-serif);
+    font-style:italic;
+    font-size:clamp(1.2rem, 4vw, 1.5rem);
+    color:var(--rose-deep);
+    margin-top:26px;
+    opacity:0;
+    transform:translateY(12px) scale(.96);
+    transition:opacity .5s ease, transform .5s ease;
+  }
+  .secret-message.shown{ opacity:1; transform:translateY(0) scale(1); }
+
+  /* Footer */
+  .signature{
+    text-align:center;
+    padding:40px 20px 70px;
+    position:relative;
+    z-index:2;
+    opacity:0;
+    transform:translateY(20px);
+    transition:opacity .8s ease, transform .8s ease;
+  }
+  .signature.in-view{ opacity:1; transform:translateY(0); }
+  .signature p{ font-size:1rem; opacity:.8; }
+  .signature .sign{
+    font-family:var(--font-script);
+    font-size:2rem;
+    color:var(--rose-deep);
+    margin-top:.3rem;
+    opacity:1;
+  }
+
+  /* Music player */
+  .music-player{
+    position:fixed;
+    right:18px; bottom:18px;
+    z-index:30;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:6px;
+  }
+  .vinyl{
+    all:unset;
+    width:56px; height:56px;
+    border-radius:50%;
+    cursor:pointer;
+    background:
+      radial-gradient(circle at center, var(--rose) 0 8px, transparent 9px),
+      repeating-radial-gradient(circle at center, #2b1620 0 3px, #3a1f28 3px 6px);
+    box-shadow:0 6px 16px rgba(0,0,0,.3);
+    display:flex; align-items:center; justify-content:center;
+    animation:none;
+  }
+  .vinyl.playing{ animation:spin 3s linear infinite; }
+  @keyframes spin{ to{ transform:rotate(360deg); } }
+  .vinyl-center{ color:#fff8ef; font-size:.8rem; }
+  .music-label{
+    font-size:.72rem;
+    color:var(--ink);
+    background:var(--paper);
+    padding:3px 9px;
+    border-radius:20px;
+    box-shadow:0 3px 8px rgba(0,0,0,.12);
+    white-space:nowrap;
+  }
+
+  @media (max-width:480px){
+    .scrap{ margin:70px auto; padding:32px 20px; }
+    .photo-frame{ width:42vw; max-width:170px; flex-basis:42vw; }
+  }
+</style>
+</head>
+<body>
+
+<div id="heartsLayer" aria-hidden="true"></div>
+
+<!-- ===================== HERO ===================== -->
+<section class="hero">
+  <div class="hero-content">
+    <h1 class="hero-title">Feliz<br>Cumpleaños</h1>
+    <p class="hero-name">✨MICHELL✨</p>
+    <p class="hero-sub">tengo algo para ti aquí abajo…</p>
+  </div>
+
+  <div class="envelope-wrap" id="envelopeWrap">
+    <button class="envelope" id="envelope" aria-label="Abrir el sobre">
+      <span class="envelope-back"></span>
+      <span class="envelope-flap"></span>
+      <span class="wax-seal">♥</span>
+    </button>
+    <p class="tap-hint">toca el sobre para abrirlo</p>
+  </div>
+</section>
+
+<main>
+
+  <!-- ===================== CARTA ===================== -->
+  <section class="scrap letter reveal" style="--tilt:-0.7deg">
+    <span class="tape tape-top"></span>
+    <h2 class="scrap-title">Para ti</h2>
+    <p class="letter-text" id="letterText"></p>
+  </section>
+
+  <!-- ===================== FOTOS ===================== -->
+  <!-- ============================================================ -->
+  <!--  👉 CÓMO AGREGAR TUS FOTOS:                                   -->
+  <!--  Cambia el "src" de cada <img> de abajo (foto1.jpeg, foto2.jpeg, etc. (hasta foto8.jpeg).)     -->
+  <!--  por la ruta de tu imagen, o pega el código en base64.        -->
+  <!--  Si el archivo no existe todavía, se muestra un ícono         -->
+  <!--  de cámara en su lugar, así que no pasa nada si lo dejas así  -->
+  <!--  por ahora.                                                   -->
+  <!-- ============================================================ -->
+  <section class="scrap photos reveal" style="--tilt:0.5deg">
+    <h2 class="scrap-title">Mis Fotos favoritas tuyas 😍</h2>
+    <div class="photo-row">
+      <figure class="photo-frame" style="--rot:-6deg">
+        <img class="photo-img" src="foto1.jpeg" alt="" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+        <div class="photo-fallback">📷</div>
+        <span class="tape"></span>
+      </figure>
+      <figure class="photo-frame" style="--rot:4deg">
+        <img class="photo-img" src="foto2.jpeg" alt="" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+        <div class="photo-fallback">📷</div>
+        <span class="tape"></span>
+      </figure>
+      <figure class="photo-frame" style="--rot:-3deg">
+        <img class="photo-img" src="foto3.jpeg" alt="" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+        <div class="photo-fallback">📷</div>
+        <span class="tape"></span>
+      </figure>
+      <figure class="photo-frame" style="--rot:5deg">
+        <img class="photo-img" src="foto4.jpeg" alt="" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+        <div class="photo-fallback">📷</div>
+        <span class="tape"></span>
+      </figure>
+      <figure class="photo-frame" style="--rot:-5deg">
+        <img class="photo-img" src="foto5.jpeg" alt="" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+        <div class="photo-fallback">📷</div>
+        <span class="tape"></span>
+      </figure>
+      <figure class="photo-frame" style="--rot:3deg">
+        <img class="photo-img" src="foto6.jpeg" alt="" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+        <div class="photo-fallback">📷</div>
+        <span class="tape"></span>
+      </figure>
+      <figure class="photo-frame" style="--rot:-4deg">
+        <img class="photo-img" src="foto7.jpeg" alt="" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+        <div class="photo-fallback">📷</div>
+        <span class="tape"></span>
+      </figure>
+      <figure class="photo-frame" style="--rot:6deg">
+        <img class="photo-img" src="foto8.jpeg" alt="" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+        <div class="photo-fallback">📷</div>
+        <span class="tape"></span>
+      </figure>
+    </div>
+  </section>
+
+  <!-- ===================== COSITAS ===================== -->
+  <section class="scrap list reveal" style="--tilt:-0.4deg">
+    <span class="tape tape-top"></span>
+    <h2 class="scrap-title">Cositas que amo de ti</h2>
+    <ul class="love-list">
+      <li>Tus ojos, que brillan con la misma luz que ilumina mi mundo</li>
+      <li>Cómo te emocionas hasta con las cosas más chiquitas</li>
+      <li>Que seas tan tú, sin pena ni permiso de nadie</li>
+      <li>Esa boquita tan bella que tienes</li>
+      <li>Que existas, mi amor. Simplemente eso</li>
+    </ul>
+  </section>
+
+  <!-- ===================== SECRETO ===================== -->
+  <section class="scrap secret reveal" style="--tilt:0.6deg">
+    <p class="secret-hint">todavía tengo un secreto guardado...</p>
+    <button class="wax-button" id="secretSeal" aria-label="Presiona para un secreto">♥</button>
+    <p class="secret-message" id="secretMessage">Te amo con todo mi corazón, Negrita Linda. Feliz cumpleaños.</p>
+  </section>
+
+</main>
+
+<footer class="signature reveal">
+  <p>Con todo mi cariño,</p>
+  <!-- ✏️ Puedes cambiar esta firma por tu nombre o apodo si quieres -->
+  <p class="sign">Tu chocopapi mayor 🍆💦💦</p>
+</footer>
+
+<!-- ===================== MÚSICA ===================== -->
+<!-- ============================================================ -->
+<!--  🎵 CÓMO AGREGAR SU CANCIÓN:                                  -->
+<!--  Sube tu archivo de audio (mp3) junto con este HTML y         -->
+<!--  cambia "nuestra-cancion.mp3" de abajo por el nombre real     -->
+<!--  del archivo. Mientras no lo hagas, el botón se queda quieto  -->
+<!--  y no pasa nada raro.                                         -->
+<!-- ============================================================ -->
+<div class="music-player">
+  <button class="vinyl" id="musicToggle" aria-label="Reproducir música">
+    <span class="vinyl-center">♥</span>
+  </button>
+  <span class="music-label" id="musicLabel">Te la dedico</span>
+</div>
+<audio id="bgMusic" loop preload="none">
+  <source src="Amor.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ---------- floating hearts ---------- */
+  const heartsLayer = document.getElementById('heartsLayer');
+  function spawnHeart(){
+    if (prefersReducedMotion) return;
+    const heart = document.createElement('span');
+    heart.className = 'floating-heart';
+    heart.textContent = Math.random() > 0.5 ? '♥' : '❤';
+    const size = 12 + Math.random() * 22;
+    const left = Math.random() * 100;
+    const duration = 8 + Math.random() * 6;
+    const drift = (Math.random() * 90 - 45);
+    heart.style.left = left + 'vw';
+    heart.style.fontSize = size + 'px';
+    heart.style.setProperty('--drift', drift + 'px');
+    heart.style.animationDuration = duration + 's';
+    heartsLayer.appendChild(heart);
+    setTimeout(() => heart.remove(), duration * 1000 + 300);
+  }
+  const heartInterval = setInterval(spawnHeart, 650);
+  for (let i = 0; i < 5; i++) setTimeout(spawnHeart, i * 350);
+
+  /* ---------- cursor trail (desktop only) ---------- */
+  if (!('ontouchstart' in window) && !prefersReducedMotion){
+    let lastTrail = 0;
+    window.addEventListener('mousemove', (e) => {
+      const now = Date.now();
+      if (now - lastTrail < 100) return;
+      lastTrail = now;
+      const t = document.createElement('span');
+      t.className = 'cursor-heart';
+      t.textContent = '♥';
+      t.style.left = e.clientX + 'px';
+      t.style.top = e.clientY + 'px';
+      document.body.appendChild(t);
+      setTimeout(() => t.remove(), 700);
+    });
+  }
+
+  /* ---------- burst hearts ---------- */
+  function burstHearts(originEl){
+    const rect = originEl.getBoundingClientRect();
+    const cx = rect.left + rect.width / 2;
+    const cy = rect.top + rect.height / 2;
+    const count = prefersReducedMotion ? 0 : 26;
+    for (let i = 0; i < count; i++){
+      const p = document.createElement('span');
+      p.className = 'burst-heart';
+      p.textContent = '♥';
+      const angle = Math.random() * Math.PI * 2;
+      const dist = 80 + Math.random() * 150;
+      p.style.left = cx + 'px';
+      p.style.top = cy + 'px';
+      p.style.setProperty('--dx', Math.cos(angle) * dist + 'px');
+      p.style.setProperty('--dy', Math.sin(angle) * dist + 'px');
+      p.style.fontSize = (14 + Math.random() * 16) + 'px';
+      p.style.color = Math.random() > 0.5 ? 'var(--rose)' : 'var(--gold)';
+      document.body.appendChild(p);
+      setTimeout(() => p.remove(), 1100);
+    }
+  }
+
+  /* ---------- envelope ---------- */
+  const envelopeWrap = document.getElementById('envelopeWrap');
+  const envelope = document.getElementById('envelope');
+  envelope.addEventListener('click', () => {
+    if (envelope.classList.contains('opened')) return;
+    envelope.classList.add('opened');
+    spawnHeart(); spawnHeart(); spawnHeart();
+    setTimeout(() => envelopeWrap.classList.add('hidden'), 850);
+  });
+
+  /* ---------- secret seal ---------- */
+  const secretBtn = document.getElementById('secretSeal');
+  const secretMsg = document.getElementById('secretMessage');
+  secretBtn.addEventListener('click', () => {
+    burstHearts(secretBtn);
+    secretMsg.classList.add('shown');
+  });
+
+  /* ---------- typewriter letter ---------- */
+  const letterEl = document.getElementById('letterText');
+  const letterFull = "Negrita linda,\n\nHoy es tu día, y quería que lo supieras bien clarito: TE AMO MUCHÍSIMO. Y no te lo digo por decir, ni porque hoy sea tu cumpleaños. Te amo de esa forma en la que uno quiere de verdad a alguien que le importa, de esa forma que hace que uno desee con todo el corazón que a esa persona le vaya bien, que sea feliz y que nunca le falten motivos para sonreír. Y sí… también de esa forma que hace que se me ponga una sonrisa boba cada vez que pienso en ti. Así de obvio soy contigo. ❤️\n\nEspero que hoy te consientan muchísimo, que te llenen de cariño, que te rías hasta que te duela la barriga y que cada momento bonito que vivas te recuerde lo especial que eres. Y, sobre todo, espero que en algún momento del día recuerdes que hay alguien por aquí que te quiere con toda el alma, que se alegra de tenerte en su vida y que desea verte cumplir cada uno de tus sueños.\n\nFeliz cumpleaños, mi negrita. ❤️\nQue este nuevo año de vida te traiga todo eso que tanto deseas, que te sorprenda con cosas bonitas y que, si la vida se pone difícil algún día, nunca te falten razones para seguir adelante.\n\nTe mereces un mundo lleno de cosas bonitas, y yo espero poder seguir siendo parte de muchas de ellas.\n\nTe amo muchísimo. Feliz cumpleaños, mi amor. 🎂❤️";
+  let letterTyped = false;
+  function typeLetter(){
+    if (letterTyped) return;
+    letterTyped = true;
+    if (prefersReducedMotion){ letterEl.textContent = letterFull; return; }
+    let i = 0;
+    (function step(){
+      letterEl.textContent = letterFull.slice(0, i);
+      i++;
+      if (i <= letterFull.length) setTimeout(step, 14);
+    })();
+  }
+
+  /* ---------- scroll reveal ---------- */
+  const revealEls = document.querySelectorAll('.reveal, .love-list');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting){
+        entry.target.classList.add('in-view');
+        if (entry.target.classList.contains('letter')) typeLetter();
+      }
+    });
+  }, { threshold: 0.25 });
+  revealEls.forEach(el => io.observe(el));
+
+  /* ---------- music ---------- */
+  const audio = document.getElementById('bgMusic');
+  const musicBtn = document.getElementById('musicToggle');
+  const musicLabel = document.getElementById('musicLabel');
+  function startMusic(){
+    audio.play().then(() => {
+      musicBtn.classList.add('playing');
+      musicLabel.textContent = 'Te la dedico';
+    }).catch(() => {
+      // Algunos navegadores bloquean el autoplay con sonido.
+      // Se intentará nuevamente en la primera interacción del visitante.
+      musicLabel.textContent = 'Te la dedico';
+    });
+  }
+
+  // Intento de reproducción automática al entrar a la página.
+  window.addEventListener('load', startMusic);
+
+  // Si el navegador bloquea el autoplay, el primer toque/clic la inicia.
+  const resumeMusic = () => {
+    if (audio.paused) startMusic();
+    document.removeEventListener('click', resumeMusic);
+    document.removeEventListener('touchstart', resumeMusic);
+  };
+  document.addEventListener('click', resumeMusic, { once: true });
+  document.addEventListener('touchstart', resumeMusic, { once: true });
+
+  musicBtn.addEventListener('click', (event) => {
+    event.stopPropagation();
+    if (audio.paused){
+      startMusic();
+    } else {
+      audio.pause();
+      musicBtn.classList.remove('playing');
+      musicLabel.textContent = 'Musica pausada';
+    }
+  });
+</script>
+
+</body>
+</html>
